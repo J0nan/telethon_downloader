@@ -70,9 +70,6 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: true
-          tags: |
-            j0n4n/telethon_downloader:latest
-            j0n4n/telethon_downloader:${{ steps.vars.outputs.tag }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
