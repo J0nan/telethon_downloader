@@ -70,7 +70,7 @@ jobs:
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: true
           tags: |
-            jsavargas/telethon_downloader:${{ steps.tag.outputs.SOURCE_TAG }}
+            j0n4n/telethon_downloader:${{ steps.tag.outputs.SOURCE_TAG }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}

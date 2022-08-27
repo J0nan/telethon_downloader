@@ -262,11 +262,16 @@ async def handler(update):
 					FOLDER_GROUP = update.message.date
 					temp_completed_path  = os.path.join(TG_DOWNLOAD_PATH,'completed',folder.replace('/folder ','')) # SI VIENE EL TEXTO '/folder NAME_FOLDER' ESTE CREARÁ UNA CARPETA Y METERÁ ADENTRO TODOS LOS ARCHIVOS A CONTINUACION 
 					logger.info("DOWNLOAD FILE IN :[%s]",temp_completed_path)
+				elif update.message.message == '/listsendfiles':
+					files = os.listdir(os.path.join(download_path,'sendFiles'))
+					message = await update.reply(files)
+					await queue.put([update, message,temp_completed_path])
 				elif ((update.message.message).startswith('/sendfiles')):
+					folder = update.message.message
 					msg = await update.reply('Sending files...')
 					create_directory(os.path.join(download_path,'sendFiles'))
 					ignored = {"*._process"}
-					basepath = os.path.join(download_path,'sendFiles')
+					basepath = os.path.join(download_path,'sendFiles', folder.replace('/folder ',''))
 					sending = 0
 					for root, subFolder, files in os.walk(basepath):
 						subFolder.sort()
@@ -283,7 +288,7 @@ async def handler(update):
 							task = loop.create_task(tg_send_file(CID,fileNamePath,item))
 							download_result = await asyncio.wait_for(task, timeout = maximum_seconds_per_download)
 							#message = await tg_send_file(fileNamePath)
-							shutil.move(fileNamePath, fileNamePath + "_process")
+							# shutil.move(fileNamePath, fileNamePath + "_process")
 					await msg.edit('{} files submitted'.format(sending))
 					logger.info("FILES SUBMITTED:[%s]", sending)
 				elif ((update.message.message).startswith('#')):

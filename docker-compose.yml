@@ -3,7 +3,7 @@ version: '3'
 services:
 
   telethon_downloader:
-    image: jsavargas/telethon_downloader
+    image: j0n4n/telethon_downloader
     container_name: telethon_downloader
     restart: unless-stopped
     network_mode: host
