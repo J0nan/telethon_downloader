@@ -13,3 +13,5 @@ telethon-downloader/example_lenguage.py
 tmp/*
 TODO.txt
 *.drawio
+test.py
+telethon-downloader/False/*
